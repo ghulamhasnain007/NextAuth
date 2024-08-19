@@ -9,15 +9,19 @@ export const sendEmail = async ({email, emailType, userId}: any)=>{
     if(emailType === "VERIFY"){
         await User.findByIdAndUpdate(userId,
             { 
-                verifyToken: hashedToken, 
-                verifyTokenExpiry: Date.now() + 360000
+                $set: {
+                    verifyToken: hashedToken, 
+                    verifyTokenExpiry: Date.now() + 3600000
+                }
             })
     }
     else if(emailType === "RESET"){
         await User.findByIdAndUpdate(userId,
             { 
-                forgetPasswordToken: hashedToken, 
-                forgetPasswordTokenExpiry: Date.now() + 360000
+                $set: {
+                    forgetPasswordToken: hashedToken, 
+                    forgetPasswordTokenExpiry: Date.now() + 3600000
+                }
             })
     }
     try {
@@ -108,5 +112,63 @@ export const sendEmail = async ({email, emailType, userId}: any)=>{
 //     } catch (error) {
 //         console.log(error);
 //         throw new Error('Error sending email');
+//     }
+// };
+
+
+// import nodemailer from 'nodemailer';
+// import bcryptjs from 'bcryptjs';
+// import User from '@/models/userModels';
+
+// export const sendEmail = async ({ email, emailType, userId }: any) => {
+//     // Generate hashed token
+//     const hashedToken = await bcryptjs.hash(userId.toString(), 10);
+
+//     // Save the hashed token and expiry to the database
+//     if (emailType === "VERIFY") {
+//         await User.findByIdAndUpdate(userId, {
+//             $set: {
+//                 verifyToken: hashedToken,
+//                 verifyTokenExpiry: Date.now() + 3600000, // 1 hour expiry
+//             }
+//         });
+//     } else if (emailType === "RESET") {
+//         await User.findByIdAndUpdate(userId, {
+//             $set: {
+//                 forgetPasswordToken: hashedToken,
+//                 forgetPasswordTokenExpiry: Date.now() + 3600000, // 1 hour expiry
+//             }
+//         });
+//     }
+
+//     try {
+//         const transporter = nodemailer.createTransport({
+//             host: "sandbox.smtp.mailtrap.io",
+//             port: 2525,
+//             auth: {
+//                 user: "f07036bea85cf1",
+//                 pass: "19419e37d23047"
+//             }
+//         });
+
+//         const emailOptions = {
+//             from: 'hasnain@gmail.com',
+//             to: email,
+//             subject: emailType === "VERIFY" ? "Verify Your Account" : "Reset Password",
+//             html: emailType === "VERIFY"
+//                 ? `<p>Click <a href='${process.env.DOMAIN}/verifyEmail?token=${hashedToken}'>here</a> to verify your email 
+//                    or copy and paste the link below in your browser:<br>
+//                    ${process.env.DOMAIN}/verifyEmail?token=${hashedToken}</p>`
+//                 : `<p>Click <a href='${process.env.DOMAIN}/resetPassword?token=${hashedToken}'>here</a> to reset your password 
+//                    or copy and paste the link below in your browser:<br>
+//                    ${process.env.DOMAIN}/resetPassword?token=${hashedToken}</p>`
+//         };
+
+//         const mailerResponse = await transporter.sendMail(emailOptions);
+
+//         return mailerResponse;
+
+//     } catch (error: any) {
+//         throw new Error(error.message); 
 //     }
 // };

@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function Login() {
+export default function LoginPage() {
+
+  const [user, setUser] = useState({
+    email: "",
+    passsword: ""
+  })
+  
   return (
     <div>Login</div>
   )
 }
-
-export default Login
