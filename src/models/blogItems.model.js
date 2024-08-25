@@ -20,12 +20,12 @@ const blogItemSchema = new mongoose.Schema({
     //         ref: 'todos'
     //     }
     // ]
-    // category:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'blogs'
-    // }
+    category:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'blogs'
+    }
 }, { timestamps: true })
 
-const BlogItems = mongoose.model('blogItems', blogItemSchema)
+const BlogItems = mongoose.models.blogItems ||  mongoose.model('blogItems', blogItemSchema)
 
 export default BlogItems
