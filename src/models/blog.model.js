@@ -11,12 +11,12 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // blogItems:[
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'blogItems'
-    //     }
-    // ]
+    blogItems:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'blogItems'
+        }
+    ]
     // createdBy:{
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "users"

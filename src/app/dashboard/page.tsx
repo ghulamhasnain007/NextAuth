@@ -144,7 +144,7 @@ const posts = [
                 </div>
                 <div className="mx-auto mt-10 max-w-2xl grid grid-cols-1 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none">
                   {posts.map((post) => (
-                    <article key={post.id} className="flex flex-col lg:flex-row items-start gap-x-6">
+                    <article key={post.id} className="flex flex-col bg-blue-400 p-5 rounded-lg lg:flex-row items-start gap-x-6">
                       {/* Add blog image */}
                       <img
                         src="https://via.placeholder.com/150x150" // Replace with your image URL
