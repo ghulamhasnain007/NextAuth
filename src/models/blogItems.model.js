@@ -1,31 +1,21 @@
-const mongoose = require('mongoose')
+import mongoose from "mongoose";
 
 const blogItemSchema = new mongoose.Schema({
-    title:{
+    title: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
-    description:{
+    description: {
         type: String,
-        required: true
+        required: true,
     },
-    // createdBy: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Users'
-    // },
-    // todoList:[
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'todos'
-    //     }
-    // ]
-    category:{
+    category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'blogs'
+        ref: 'blogs',  // Refers to the Blogs model
+        required: true,
     }
-}, { timestamps: true })
+}, { timestamps: true });
 
-const BlogItems = mongoose.models.blogItems ||  mongoose.model('blogItems', blogItemSchema)
-
-export default BlogItems
+const BlogItems = mongoose.models.blogItems || mongoose.model('blogItems', blogItemSchema);
+export default BlogItems;

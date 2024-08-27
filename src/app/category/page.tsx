@@ -114,6 +114,86 @@
 
 
 
+// "use client"
+
+// import axios from "axios";
+// import Link from "next/link";
+// import { useEffect, useState } from "react";
+// import toast from "react-hot-toast";
+
+// interface Category {
+//     _id: string;
+//     title: string;
+//     description: string;
+//     // imageUrl: string;
+//     // numBlogs: number;
+//   }
+// export default function CategoriesPage() {
+      
+//     const [cats, setCats] = useState<Category[]>([]);
+
+//     async function getCategories() {
+//         try {
+//             const response = await axios.get('/api/categories/');
+//             console.log(response);
+//             setCats(response.data.data || []);
+//             // setCats()
+//         } catch (error: any) {
+//             console.log(error);
+//             toast.error(error.response?.data?.message || error.message);
+//         }
+//     }
+
+//     useEffect(() => {
+//         getCategories();
+//     }, []);
+
+//     return (
+//         <div className="bg-white py-24 sm:py-32">
+//             <div className="mx-auto max-w-7xl px-6 lg:px-8">
+//                 <div className="mx-auto max-w-2xl lg:mx-0">
+//                     <h2 className="text-3xl font-bold tracking-tight text-gray-700 sm:text-4xl">Blog Categories</h2>
+//                     <p className="mt-2 text-lg leading-8 text-gray-600">
+//                         Explore our range of categories and dive into the content that interests you.
+//                     </p>
+//                 </div>
+//                 <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+//                     {cats.length > 0 ? (
+//                         cats.map((category, index) => (
+//                             <div key={category._id || index} className="group relative">
+//                                 <div className="overflow-hidden rounded-lg shadow-lg">
+//                                     <img
+//                                         // src={category.imageUrl || 'https://via.placeholder.com/800x400'}
+//                                         alt={category.title || 'Category Image'}
+//                                         className="w-full h-64 object-cover"
+//                                     />
+//                                     <div className="absolute inset-0 bg-opacity-50 flex items-center hover:bg-gray-900 justify-center">
+//                                         <h3 className="text-2xl font-bold text-white">{category.title}</h3>
+//                                     </div>
+//                                 </div>
+//                                 <div className="mt-4">
+//                                     <p className="text-sm text-gray-500">
+//                                         {/* {category.blogItems.length || 0} blogs in this category */}
+//                                     </p>
+//                                     <p className="mt-2 text-base text-gray-700">{category.description}</p>
+//                                     <Link
+//                                         href={`/category/${category._id}`}
+//                                         className="mt-4 inline-block text-indigo-600 hover:text-indigo-900 cursor-pointer"
+//                                     >
+//                                         View Blogs
+//                                     </Link>
+//                                 </div>
+//                             </div>
+//                         ))
+//                     ) : (
+//                         <p className="text-lg text-gray-500">No categories found.</p>
+//                     )}
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
+
 "use client"
 
 import axios from "axios";
@@ -122,19 +202,18 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface Category {
-    id: string;
+    _id: string;
     title: string;
     description: string;
-    // imageUrl: string;
-    // numBlogs: number;
-  }
+}
+
 export default function CategoriesPage() {
       
     const [cats, setCats] = useState<Category[]>([]);
 
     async function getCategories() {
         try {
-            const response = await axios.get('/api/blogs/readBlog');
+            const response = await axios.get('/api/categories/');
             console.log(response);
             setCats(response.data.data || []);
         } catch (error: any) {
@@ -158,30 +237,34 @@ export default function CategoriesPage() {
                 </div>
                 <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                     {cats.length > 0 ? (
-                        cats.map((category, index) => (
-                            <div key={category.id || index} className="group relative">
+                        cats.map((category) => (
+                            <div key={category._id} className="group relative">
+                                <Link  href={`/category/${category._id}`}
+                                    className="mt-4 inline-block text-indigo-600 hover:text-indigo-900 cursor-pointer">
                                 <div className="overflow-hidden rounded-lg shadow-lg">
                                     <img
                                         // src={category.imageUrl || 'https://via.placeholder.com/800x400'}
                                         alt={category.title || 'Category Image'}
                                         className="w-full h-64 object-cover"
                                     />
-                                    <div className="absolute inset-0 hover:bg-gray-900 bg-opacity-50 flex items-center justify-center">
+                                    {/* <div className="absolute inset-0 bg-opacity-50 flex items-center justify-center group-hover:bg-gray-900 transition-all duration-300"> */}
+                                    <div className="absolute inset-0 bg-opacity-50 flex items-center justify-center transition-all duration-300">
                                         <h3 className="text-2xl font-bold text-white">{category.title}</h3>
                                     </div>
                                 </div>
                                 <div className="mt-4">
                                     <p className="text-sm text-gray-500">
-                                        {/* {category.numBlogs || 0} blogs in this category */}
+                                        {/* {category.blogItems.length || 0} blogs in this category */}
                                     </p>
                                     <p className="mt-2 text-base text-gray-700">{category.description}</p>
-                                    <Link
-                                        href={`/category/${category.id}`}
-                                        className="mt-4 inline-block text-indigo-600 hover:text-indigo-900"
-                                    >
-                                        View Blogs
-                                    </Link>
+                                    {/* <Link href={`/category/${category._id}`} legacyBehavior>
+                                        <a className="mt-4 inline-block text-indigo-600 hover:text-indigo-900 cursor-pointer">
+                                            View Blogs
+                                        </a>
+                                    </Link> */}
+
                                 </div>
+                                </Link>
                             </div>
                         ))
                     ) : (
@@ -192,4 +275,3 @@ export default function CategoriesPage() {
         </div>
     );
 }
-

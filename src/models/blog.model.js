@@ -1,31 +1,23 @@
-import { timeStamp } from "console";
 import mongoose from "mongoose";
 
 const blogSchema = new mongoose.Schema({
-    title:{
+    title: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
-    description:{
+    description: {
         type: String,
-        required: true
+        required: true,
     },
-    blogItems:[
+    blogList: [  // Ensure the field name is 'blogList'
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'blogItems'
+            ref: 'blogItems',  // Refers to the BlogItems model
         }
     ]
-    // createdBy:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "users"
-    // }
-
-}, {timeStamp: true})
+}, { timestamps: true });
 
 
 const Blogs = mongoose.models.blogs || mongoose.model("blogs", blogSchema);
-
-export default Blogs
-
+export default Blogs;

@@ -20,6 +20,8 @@ export async function POST(request: NextRequest){
             description: description,
         });
         await newBlog.save()
+        console.log(newBlog);
+        
         return NextResponse.json({message: "Blog Created Successfully", success: true, data: newBlog}, {status: 200})
     }
     catch(error: any){

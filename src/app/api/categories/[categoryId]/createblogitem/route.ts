@@ -28,7 +28,7 @@ export async function POST(request: NextRequest, context: any) {
         // Push the new blog item ID to the blogItems array
         await Blogs.findByIdAndUpdate(categoryId, {
             $push: {
-                blogItems: newBlogItem._id
+                blogList: newBlogItem._id
             }
         });
 

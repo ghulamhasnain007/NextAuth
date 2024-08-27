@@ -27,7 +27,7 @@ export async function DELETE(request: NextRequest, context: any) {
         }
         await Blogs.findByIdAndUpdate(categoryId, {
             $pull: {
-                blogItems: blog._id
+                blogList: blog._id
             }
         });
 
