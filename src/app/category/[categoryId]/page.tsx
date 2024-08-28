@@ -239,7 +239,7 @@
 "use client";
 
 import axios from 'axios';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation'; // Updated import
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -257,13 +257,13 @@ export default function Dashboard() {
   const params = useParams();
   const [blogItems, setBlogItems] = useState<BlogItems[]>([]);
   const [title, setTitle] = useState<string | undefined>(undefined);
+  const router = useRouter(); // Correct usage of useRouter
 
   async function getBlogItems(): Promise<void> {
     try {
       const response = await axios.get(`http://localhost:3000/api/categories/${params.categoryId}/readItem`);
 
       if (response.data?.data) {
-        console.log(response.data.data.title);
         setBlogItems(response.data.data.blogList);
         setTitle(response.data.data.title);
       }
@@ -275,7 +275,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     getBlogItems();
-  }, []);
+  }, [params.categoryId]); // Ensure this runs whenever categoryId changes
+
+  const routetoBlog = (blogId: string) => {
+    router.push(`/category/${params.categoryId}/blog/${blogId}`);
+  };
 
   return (
     <div className="bg-white py-24 sm:py-32">
@@ -324,9 +328,12 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="mt-6">
-                    <Link href={`category/${post.category}/blog/${post._id}`} className="text-blue-500 hover:text-blue-700">
+                    <Link href={`/category/${post.category}/blog/${post._id}`} className="text-blue-500 hover:text-blue-700">
                       Read More
                     </Link>
+                    <button onClick={() => { routetoBlog(post._id); }} className='text-white bg-green-700 hover:bg-green-900 p-3 ml-4'>
+                      Read More
+                    </button>
                   </div>
                 </div>
               </article>
@@ -339,6 +346,7 @@ export default function Dashboard() {
     </div>
   );
 }
+
 
 
 

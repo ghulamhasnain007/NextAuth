@@ -2,6 +2,7 @@ import { connectDB } from '@/dbConfig/dbConfig';
 import { NextRequest, NextResponse } from 'next/server';
 import BlogItems from '@/models/blogItems.model';
 import getBlogCategoryById from '@/services/categories.services';
+import Blogs from '@/models/blog.model';
 
 connectDB();
 
@@ -13,11 +14,14 @@ export async function GET(request: NextRequest, context: any) {
         console.log('Category ID:', categoryId);
         console.log('Blog ID:', blogId);
 
+ 
         // Validate the category ID
         const category = await getBlogCategoryById(categoryId);
         if (!category) {
             return NextResponse.json({ message: "Category Not Found" }, { status: 404 });
         }
+
+        console.log(category);
 
         // Find the specific blog item by blogId
         const blog = await BlogItems.findById(blogId);
@@ -25,7 +29,7 @@ export async function GET(request: NextRequest, context: any) {
             return NextResponse.json({ message: "Blog Item Not Found" }, { status: 404 });
         }
 
-        return NextResponse.json({ message: "Data Read Successfully", data: blog }, { status: 200 });
+        return NextResponse.json({ message: "Data Read Successfully", data: blog, categoryName: category }, { status: 200 });
     } catch (error: any) {
         return NextResponse.json({ message: "Something went wrong", error: error.message }, { status: 500 });
     }

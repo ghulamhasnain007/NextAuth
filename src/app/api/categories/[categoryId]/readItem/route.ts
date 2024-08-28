@@ -39,7 +39,7 @@
 // }
 import { NextRequest, NextResponse } from 'next/server';
 import Blogs from '@/models/blog.model';
-import BlogItems from '@/models/blogItems.model';  // Ensure this import
+// import BlogItems from '@/models/blogItems.model';  // Ensure this import
 import { connectDB } from '@/dbConfig/dbConfig';
 
 connectDB();
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest, context: any) {
 
         console.log('Category ID:', categoryId);
 
-        const category = await Blogs.findById(categoryId).populate(['blogList']);
+        const category = await Blogs.findById(categoryId).populate('blogList');
 
         if (!category) {
             return NextResponse.json({ message: "Category Not Found" }, { status: 404 });
