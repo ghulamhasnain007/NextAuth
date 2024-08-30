@@ -61,10 +61,10 @@ const blogItemSchema = new mongoose.Schema({
     content: [contentBlockSchema],  // Array of content blocks
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Blogs',  // Refers to the Blogs model
+        ref: 'blogs',  // Refers to the Blogs model
         required: true,
     }
 }, { timestamps: true });
 
-const BlogItems = mongoose.models.BlogItems || mongoose.model('BlogItems', blogItemSchema);
+const BlogItems = mongoose.models.blogItems || mongoose.model('blogItems', blogItemSchema);
 export default BlogItems;

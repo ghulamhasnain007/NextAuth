@@ -11,11 +11,16 @@ export async function POST(request: NextRequest, context: any) {
     try {
         const { params } = context;
         const reqBody = await request.json();
+        console.log(reqBody);
         const { title, description, content } = reqBody;
         const { categoryId } = params;
 
         const parsedContent = parseHtmlToContentBlocks(content); // Implement this function
 
+        if (!title || !description) {
+            return NextResponse.json({ message: "Title and description are required." }, { status: 400 });
+        }
+        
         const newBlogItem = new BlogItems({
             title,
             description,
