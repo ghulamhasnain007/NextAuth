@@ -4,16 +4,18 @@ import axios from 'axios';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
+// import { useUserContext } from '@/context';
 
 const Editor = dynamic(() => import('react-draft-wysiwyg').then(mod => mod.Editor), {
     ssr: false,
 });
 
-const BlogEditor: React.FC<{ categoryId: string }> = ({ categoryId }) => {
+const BlogEditor: React.FC<{ categoryId: string, loginUser: any }> = ({ categoryId, loginUser }) => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
+    // const { loginUser } = useUserContext()
     const onEditorStateChange = (state: EditorState) => {
         setEditorState(state);
     };
@@ -37,6 +39,7 @@ const BlogEditor: React.FC<{ categoryId: string }> = ({ categoryId }) => {
                 title,
                 description,
                 content: htmlContent,
+                author: loginUser?._id
             });
            
 

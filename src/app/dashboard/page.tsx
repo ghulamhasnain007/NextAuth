@@ -214,6 +214,9 @@ export default function Dashboard() {
     imageUrl: string | null;
     category: {
       title: string
+    },
+    author:{
+      username: string
     }
   }
 
@@ -293,7 +296,8 @@ export default function Dashboard() {
                   <div className="relative mt-8 flex items-center gap-x-4">
                     <img alt="Author" className="h-10 w-10 rounded-full bg-gray-50" />
                     <div className="text-sm leading-6">
-                      <p className="font-semibold text-gray-900">Author Name</p>
+                      <p className="font-semibold text-gray-900">{post.author.username}</p>
+                      {/* <p className="font-semibold text-gray-900">Author Name</p> */}
                       <p className="text-gray-600">Author Role</p>
                     </div>
                   </div>

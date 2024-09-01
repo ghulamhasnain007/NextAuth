@@ -1,5 +1,6 @@
 "use client"
 
+import { useUserContext } from '@/context'
 import axios from 'axios'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -12,17 +13,20 @@ function AddCategory() {
     // }
     const [ category, setCategory ] = useState({
         title: "",
-        description: ""
+        description: "",
     })
+    const { loginUser } = useUserContext()
 
     const onSave = () =>{
         try{
             const response = axios.post('http://localhost:3000/api/categories/addcategory', {
                 title: category.title,
-                description: category.description
+                description: category.description,
+                author: loginUser?._id
             })
     
             console.log(response);
+
         }
         catch(error: any){
             toast.error(error.message)

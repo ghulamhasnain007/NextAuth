@@ -1,5 +1,6 @@
 'use client'
 
+// import { useUserContext } from '@/context'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -16,11 +17,14 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
+  // const {loginUser, setLoginUser} = useUserContext()
   const onLogin = async() =>{
     try {
       setLoading(true)
       const response = await axios.post('/api/users/login', user)
       console.log("Log in Succesfully: ", user)
+      // console.log(response.data)
+      // setLoginUser(response.data)
       router.push('/profile')
 
     } catch (error: any) {

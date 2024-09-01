@@ -10,10 +10,15 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true,
+    },
     blogList:[
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'blogItems',  // Refers to the Blogs model
+            ref: 'blogitems',  // Refers to the Blogs model
         }
     ] 
 }, { timestamps: true });

@@ -1,5 +1,6 @@
 "use client"
 
+import { UserWrapper } from '@/context';
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
@@ -11,14 +12,16 @@ function ContextLayout({children}: any) {
     }
 
     return (
-        <div>
-            <button
-                className='bg-green-500 text-white p-3 hover:bg-green-700'
-                onClick={onCreate}>
-                Create a New Blog
-            </button>
-            {children}
-        </div>
+        <UserWrapper>
+            <div>
+                <button
+                    className='bg-green-500 text-white p-3 hover:bg-green-700'
+                    onClick={onCreate}>
+                    Create a New Blog
+                </button>
+                {children}
+            </div>
+        </UserWrapper>
     )
 }
 

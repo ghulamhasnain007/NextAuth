@@ -12,7 +12,7 @@ export async function POST(request: NextRequest, context: any) {
         const { params } = context;
         const reqBody = await request.json();
         console.log(reqBody);
-        const { title, description, content } = reqBody;
+        const { title, description, author, content } = reqBody;
         const { categoryId } = params;
 
         const parsedContent = parseHtmlToContentBlocks(content); // Implement this function
@@ -25,6 +25,7 @@ export async function POST(request: NextRequest, context: any) {
             title,
             description,
             content: parsedContent,
+            author: author,
             category: categoryId,
         });
 
@@ -45,6 +46,7 @@ export async function POST(request: NextRequest, context: any) {
 
         return NextResponse.json({ message: "Blog item added successfully", data: newBlogItem }, { status: 200 });
     } catch (error: any) {
+        console.log(error)
         return NextResponse.json({ message: error , error: error.message }, { status: 500 });
     }
 }
