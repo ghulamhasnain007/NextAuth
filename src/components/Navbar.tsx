@@ -36,7 +36,7 @@ const Navbar = () => {
             await axios.get('/api/users/logout');
             toast.success('Logged out successfully');
             setUser(null); // Reset user state after logout
-            router.push('/login');
+            router.push('/users/login');
         } catch (error: any) {
             console.log(error);
             toast.error(error.message);

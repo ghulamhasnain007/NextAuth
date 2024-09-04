@@ -23,7 +23,7 @@ export default function SignupPage() {
       const response = await axios.post('/api/users/signup', user)
       console.log("Sign Up Succesfully: ", user)
       // router.push('/login')
-      router.push('/verifyemail')
+      router.push('/users/verifyemail')
 
     } catch (error: any) {
       console.log("Signup Failed");
@@ -71,7 +71,7 @@ export default function SignupPage() {
       onClick={onSignUp}>
         {buttonDisabled ? "No Sign Up" : "Sign Up"}
       </button>
-      <p>Already have an Account? <Link href={'/login'}>Login</Link></p>
+      <p>Already have an Account? <Link href={'/users/login'}>Login</Link></p>
     </div>
   )
 }

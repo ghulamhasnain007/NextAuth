@@ -66,7 +66,7 @@ export default function LoginPage() {
       onClick={onLogin}>
         {buttonDisabled ? "No Sign in" : "Sign in"}
       </button>
-      <p>Don't have an Account? <Link href={'/signup'} className='text-blue-600'>Create One</Link></p>
+      <p>Don't have an Account? <Link href={'/users/signup'} className='text-blue-600'>Create One</Link></p>
     </div>
   )
 }

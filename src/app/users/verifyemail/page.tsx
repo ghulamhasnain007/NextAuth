@@ -136,7 +136,7 @@ function VerifyEmail() {
             {isVerified && (
                 <div className='mt-4'>
                     <h2 className="text-2xl">Email Verified</h2>
-                    <Link className='text-blue-500 underline' href={'/login'}> 
+                    <Link className='text-blue-500 underline' href={'/users//login'}> 
                         Login
                     </Link>
                 </div>
