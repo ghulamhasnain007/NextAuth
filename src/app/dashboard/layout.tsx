@@ -14,7 +14,7 @@ function ContextLayout({children}: any) {
 
     return (
         <UserWrapper>
-            <Navbar />
+            {/* <Navbar /> */}
                 <div>
                 <button
                     className='bg-green-500 text-white p-3 hover:bg-green-700'
